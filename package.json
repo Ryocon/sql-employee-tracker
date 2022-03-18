@@ -1,0 +1,24 @@
+{
+  "name": "sql-employee-tracker",
+  "version": "1.0.0",
+  "description": "sql based employee tracker",
+  "main": "index.js",
+  "dependencies": {
+    "inquirer": "^8.2.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ryocon/sql-employee-tracker.git"
+  },
+  "author": "Ryan O'Connor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ryocon/sql-employee-tracker/issues"
+  },
+  "homepage": "https://github.com/Ryocon/sql-employee-tracker#readme"
+}
