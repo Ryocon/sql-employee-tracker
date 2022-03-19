@@ -35,11 +35,26 @@ const init = () => {
         switch (answers) {
             case 'View all Departments':
                 // function
+                break;
         }
     }))
 }
 
 
+
+const viewDepartments = () => {
+    const sql = `SELECT + FROM department`
+
+    db.query(sql, (err, rows) => {
+        if (err) {
+            console.log(err)
+            return
+        } else {
+            console.table(rows)
+            init()
+        }
+    })
+}
 
 
 
