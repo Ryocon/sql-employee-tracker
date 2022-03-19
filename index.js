@@ -11,4 +11,44 @@ const db = mysql.createConnection({
 console.log('Connected to employee_db')
 )
 
+const init = () => {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'What would you like to do?',
+            name: 'choices',
+            choices: [
+                'View all Departments',
+                'View all Roles',
+                'View all Employees',
+                'Add a Department',
+                'Add a Role',
+                'Add an Employee',
+                'Update an Employee Role'
+            ]
+        }
+    ])
 
+    .then((answers => {
+        const {choices} = answers
+        
+        switch (answers) {
+            case 'View all Departments':
+                // function
+        }
+    }))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+init()
