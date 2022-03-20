@@ -27,10 +27,12 @@ const init = () => {
                 'Add an Employee',
                 'Update an Employee Role'
             ]
-        }
+        },
+        console.log('test')
     ])
 
     .then((answers => {
+        console.log('then running')
         // const {choices} = answers
         
         switch (answers.choices) {
