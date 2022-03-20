@@ -31,7 +31,7 @@ const init = async () => {
         console.log('test')
     ])
 
-    .then((answers => {
+    .then((answers) => {
         console.log('then running')
         // const {choices} = answers
         
@@ -40,18 +40,17 @@ const init = async () => {
                 viewDepartments()
                 break;
         }
-    }))
+    })
 }
 
 
 
 const viewDepartments = () => {
-    const sql = `SELECT * FROM department`
+    const sql = `SELECT * FROM department`;
 
     db.query(sql, (err, rows) => {
         if (err) {
-            console.log(err)
-            return
+            throw err
         } else {
             console.table(rows)
             init()
