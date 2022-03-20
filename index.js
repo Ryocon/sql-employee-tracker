@@ -12,8 +12,8 @@ const db = mysql.createConnection({
 console.log('Connected to employee_db')
 )
 
-const init = () => {
-    inquirer.prompt([
+const init = async () => {
+    await inquirer.prompt([
         {
             type: 'list',
             message: 'What would you like to do?',
@@ -46,7 +46,7 @@ const init = () => {
 
 
 const viewDepartments = () => {
-    const sql = `SELECT * FROM department`;
+    const sql = `SELECT * FROM department`
 
     db.query(sql, (err, rows) => {
         if (err) {
