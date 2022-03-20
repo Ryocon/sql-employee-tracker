@@ -28,7 +28,6 @@ const init = async () => {
                 'Update an Employee Role'
             ]
         },
-        console.log('test')
     ])
 
     .then((answers) => {
