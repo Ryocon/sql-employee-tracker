@@ -24,7 +24,7 @@ VALUES
 ('Oscar', 'Martinez', 4, 3),
 ('Daryll', 'Philbin', 5, NULL),
 ('Aimee', 'Scanlon', 6, 5),
-('Dwight' 'Schrute', 7, NULL),
+('Dwight', 'Schrute', 7, NULL),
 ('Tony', 'Stark', 8, 7);
 
 
