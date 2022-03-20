@@ -1,6 +1,7 @@
 const inquirer = require('inquirer')
 const mysql = require('mysql2')
-const cTable = require('console.table')
+// const cTable = 
+require('console.table')
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -30,11 +31,11 @@ const init = () => {
     ])
 
     .then((answers => {
-        const {choices} = answers
+        // const {choices} = answers
         
-        switch (answers) {
+        switch (answers.choices) {
             case 'View all Departments':
-                // function
+                viewDepartments()
                 break;
         }
     }))
@@ -43,7 +44,7 @@ const init = () => {
 
 
 const viewDepartments = () => {
-    const sql = `SELECT + FROM department`
+    const sql = `SELECT * FROM department`;
 
     db.query(sql, (err, rows) => {
         if (err) {
@@ -55,9 +56,6 @@ const viewDepartments = () => {
         }
     })
 }
-
-
-
 
 
 
