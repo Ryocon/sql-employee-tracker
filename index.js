@@ -12,8 +12,8 @@ const db = mysql.createConnection({
 console.log('Connected to employee_db')
 )
 
-const init = async () => {
-    await inquirer.prompt([
+const init = () => {
+    inquirer.prompt([
         {
             type: 'list',
             message: 'What would you like to do?',
@@ -45,6 +45,18 @@ const init = async () => {
             case 'View all Employees':
                 viewEmployee()
                 break;
+            case 'Add a Department':
+                addDepartment()
+                break;
+            case 'Add a Role':
+                addRole()
+                break;
+            case 'Add an Employee':
+                addEmployee()
+                break;
+            case 'Update an Employee Role':
+                updateRole()
+                break;
             case 'Quit':
                 db.end()
                 break;
@@ -54,10 +66,10 @@ const init = async () => {
 
 
 
-const viewDepartments = async () => {
+const viewDepartments = () => {
     const sql = `SELECT * FROM department`;
 
-   await db.query(sql, (err, rows) => {
+    db.query(sql, (err, rows) => {
         if (err) {
             throw err
         } else {
@@ -111,7 +123,91 @@ viewEmployee = () => {
     })
 }
 
+const addDepartment = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the Department you would like to add?',
+            name: 'newDept',
+            validate: (input) => {
+                if (!input) {
+                    return 'Please provide a Department name!'
+                } else {
+                    return true
+                }
+            } 
+        }
+    ])
+    .then((answers) => {
+        const sql = `INSERT INTO department(name) VALUES (?)`
 
+        db.query(sql, answers.newDept, (err, res) => {
+            if (err) {
+                throw err
+            } else {
+                console.log('Department added')
+                init()
+            }
+        })
+    })
+}
+
+const addRole = () => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the Role you would like to add?',
+            name: 'newRole',
+            validate: (input) => {
+                if (!input) {
+                    return 'Please provide a Role name!'
+                } else {
+                    return true
+                }
+            } 
+        },
+        {
+            type: 'input',
+            message: 'What is the salary for this Role?',
+            name: 'newSalary',
+            validate: (input) => {
+                if (!input) {
+                    return 'Please provide a Salary!'
+                } else {
+                    return true
+                }
+            } 
+        },
+        {
+            type: 'input',
+            message: 'What Department does this Role belong to?',
+            name: 'newRoleDept',
+            validate: (input) => {
+                if (!input) {
+                    return 'Please provide a Department for this Role!'
+                } else {
+                    return true
+                }
+            } 
+        },
+    ])
+
+    // .then((answers) => {
+    //     const sql = ``
+
+    //     db.query(sql, answers.newDept, (err, res) => {
+    //         if (err) {
+    //             throw err
+    //         } else {
+    //             console.log('Department added')
+    //             init()
+    //         }
+    //     })
+    // })
+
+
+}
 
 
 
