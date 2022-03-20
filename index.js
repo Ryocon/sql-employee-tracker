@@ -25,7 +25,8 @@ const init = async () => {
                 'Add a Department',
                 'Add a Role',
                 'Add an Employee',
-                'Update an Employee Role'
+                'Update an Employee Role',
+                'Quit'
             ]
         },
     ])
@@ -38,14 +39,42 @@ const init = async () => {
             case 'View all Departments':
                 viewDepartments()
                 break;
+            case 'View all Roles':
+                viewRoles()
+                break;
+            case 'View all Employees':
+                viewEmployee()
+                break;
+            case 'Quit':
+                db.end()
+                break;
         }
     })
 }
 
 
 
-const viewDepartments = () => {
+const viewDepartments = async () => {
     const sql = `SELECT * FROM department`;
+
+   await db.query(sql, (err, rows) => {
+        if (err) {
+            throw err
+        } else {
+            console.table(rows)
+            init()
+        }
+    })
+}
+
+const viewRoles = () => {
+    const sql = `SELECT 
+    roles.id,
+    roles.title,
+    department.name AS department,
+    roles.salary
+    FROM roles
+    JOIN department ON roles.department_id = department.id`;
 
     db.query(sql, (err, rows) => {
         if (err) {
@@ -57,8 +86,30 @@ const viewDepartments = () => {
     })
 }
 
+viewEmployee = () => {
+    const sql = `SELECT 
+    employee.id,
+    employee.first_name,
+    employee.last_name,
+    roles.title, 
+    department.name AS department, 
+    roles.salary,
+    CONCAT (manager.first_name, ' ', manager.last_name) AS manager
+    FROM employee
+    JOIN roles ON employee.role_id = roles.id
+    JOIN department ON roles.department_id = department.id
+    LEFT JOIN employee manager on employee.manager_id = manager.id
+    `;
 
-
+    db.query(sql, (err, rows) => {
+        if (err) {
+            throw err
+        } else {
+            console.table(rows)
+            init()
+        }
+    })
+}
 
 
 
