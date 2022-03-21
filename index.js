@@ -37,7 +37,6 @@ const init = () => {
     ])
 
     .then((answers) => {
-      console.log("then running");
 
       switch (answers.choices) {
         case "View all Departments":
