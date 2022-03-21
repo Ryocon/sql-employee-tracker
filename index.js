@@ -1,8 +1,10 @@
+// importing dependencies
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-// const cTable =
+// const cTable didn't seem to bew required so shortened to just require
 require("console.table");
 
+// connection to the database made using mysql2
 const db = mysql.createConnection(
   {
     host: "localhost",
@@ -13,6 +15,7 @@ const db = mysql.createConnection(
   console.log("Connected to employee_db")
 );
 
+// initial prompts for the user to navigate through
 const init = () => {
   inquirer
     .prompt([
@@ -35,7 +38,6 @@ const init = () => {
 
     .then((answers) => {
       console.log("then running");
-      // const {choices} = answers
 
       switch (answers.choices) {
         case "View all Departments":
@@ -66,6 +68,7 @@ const init = () => {
     });
 };
 
+// function for viewing all departments
 const viewDepartments = () => {
   const sql = "SELECT * FROM department";
 
@@ -76,6 +79,7 @@ const viewDepartments = () => {
   });
 };
 
+// function for viewing roles and the department the role belongs to
 const viewRoles = () => {
   const sql =
     "SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles JOIN department ON roles.department_id = department.id";
@@ -87,6 +91,8 @@ const viewRoles = () => {
   });
 };
 
+// function for viewing employees which includes department and roles for each employee
+// the mysql2 call here uses backticks as opposed to the quotes used throughout as this is what I originally used throughout and found this one fiddly to change away from backticks without breaking it
 viewEmployee = () => {
   const sql = `SELECT employee.id, employee.first_name, employee.last_name,
     roles.title, 
@@ -106,6 +112,8 @@ viewEmployee = () => {
   });
 };
 
+// function to add a department
+// uses .map to allow inquirer to navigate the options in the database
 const addDepartment = () => {
   inquirer
     .prompt([
@@ -134,6 +142,8 @@ const addDepartment = () => {
     });
 };
 
+// function to add a role, it's salary and the department it belongs to
+// using .map for the same purpose as the addDepartment function
 const addRole = () => {
   db.query("SELECT * FROM department", (err, res) => {
     if (err) throw err;
@@ -194,6 +204,7 @@ const addRole = () => {
   });
 };
 
+// function to add an employee and their role
 const addEmployee = () => {
   db.query("SELECT * FROM roles", (err, res) => {
     if (err) throw err;
@@ -256,6 +267,7 @@ const addEmployee = () => {
   });
 };
 
+// function to update an employee role
 const updateRole = () => {
   db.query("SELECT * FROM roles", (err, res) => {
     if (err) throw err;
@@ -306,4 +318,5 @@ const updateRole = () => {
   });
 };
 
+// initialises inquirer
 init();
